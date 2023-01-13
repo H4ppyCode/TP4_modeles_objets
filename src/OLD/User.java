@@ -1,5 +1,10 @@
-import java.util.Objects;
+package OLD;
+
+import org.json.JSONObject;
+
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class User {
 
@@ -9,10 +14,14 @@ public class User {
     private int siblings;
     private double height;
     private boolean married;
-    private LocalDate birthdate;
 
-    public User(int serial, String name, String occupation, int siblings, 
-            double height, boolean married) {
+    public LocalDate getBirthdate() {
+        return birthdate;
+    }
+
+    private final LocalDate birthdate;
+    public User(int serial, String name, String occupation, int siblings,
+                double height, boolean married, LocalDate birthdate) {
 
         this.serial = serial;
         this.name = name;
@@ -20,14 +29,7 @@ public class User {
         this.siblings = siblings;
         this.height = height;
         this.married = married;
-    }
-
-    public LocalDate getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(LocalDate bdate) {
-        this.birthdate = bdate;
+        this.birthdate = birthdate;
     }
 
     public int getSerial() {
@@ -95,7 +97,7 @@ public class User {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
+        final StringBuilder sb = new StringBuilder("OLD.User{");
         sb.append("serial='").append(serial).append('\'');
         sb.append("name='").append(name).append('\'');
         sb.append(", occupation='").append(occupation).append('\'');
@@ -103,7 +105,19 @@ public class User {
         sb.append(", height=").append(height);
         sb.append(", married=").append(married);
         sb.append(", birthdate=").append(birthdate);
-        sb.append('}');
+        sb.append("}");
         return sb.toString();
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("serial", serial);
+        json.put("name", name);
+        json.put("occupation", occupation);
+        json.put("siblings", siblings);
+        json.put("height", height);
+        json.put("married", married);
+        json.put("birthdate", birthdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        return json;
     }
 }
