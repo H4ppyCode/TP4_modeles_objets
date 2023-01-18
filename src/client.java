@@ -56,7 +56,7 @@ public class client {
 
         System.out.println("Please enter the user's height:");
         input = console.nextLine();
-        while (!input.matches("-?\\d+(\\.\\d+)?")) { // checks if the input is a double
+        while (!input.matches("-?\\d+(\\.\\d+)?")) { // checks if the input is a decimal number
             System.out.println("Invalid input, please enter a valid height.");
             input = console.nextLine();
         }
