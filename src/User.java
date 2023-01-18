@@ -1,5 +1,6 @@
 import java.util.Objects;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class User {
 
@@ -10,9 +11,10 @@ public class User {
     private double height;
     private boolean married;
     private LocalDate birthdate;
+    private int age;
 
-    public User(int serial, String name, String occupation, int siblings, 
-            double height, boolean married) {
+    public User(int serial, String name, String occupation, int siblings,
+                double height, boolean married, LocalDate birthdate) {
 
         this.serial = serial;
         this.name = name;
@@ -20,6 +22,8 @@ public class User {
         this.siblings = siblings;
         this.height = height;
         this.married = married;
+        this.birthdate = birthdate;
+        this.age = Period.between(birthdate, LocalDate.now()).getYears();
     }
 
     public LocalDate getBirthdate() {
@@ -28,6 +32,7 @@ public class User {
 
     public void setBirthdate(LocalDate bdate) {
         this.birthdate = bdate;
+        this.age = Period.between(bdate, LocalDate.now()).getYears();
     }
 
     public int getSerial() {
@@ -78,6 +83,9 @@ public class User {
         this.married = married;
     }
 
+    public int getAge() {
+        return age;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,7 +98,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, occupation, siblings, height, married);
+        return Objects.hash(name, occupation, siblings, height, married, birthdate);
     }
 
     @Override
@@ -103,6 +111,7 @@ public class User {
         sb.append(", height=").append(height);
         sb.append(", married=").append(married);
         sb.append(", birthdate=").append(birthdate);
+        sb.append(", age=").append(getAge());
         sb.append('}');
         return sb.toString();
     }

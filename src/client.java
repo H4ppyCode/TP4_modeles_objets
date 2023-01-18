@@ -1,13 +1,11 @@
 import java.net.InetAddress;
 import java.net.Socket;
 import java.io.DataOutputStream;
-import java.io.DataInputStream;
-import java.io.BufferedInputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 import org.json.JSONObject;
-
-import java.util.Scanner;
-import java.time.LocalDate;
 
 public class client {
 
@@ -41,15 +39,13 @@ public class client {
         boolean married = console.nextBoolean();
         console.nextLine();
 
-        System.out.println("Quelle est la date de naissance de cette personne ? (JJ/MM/AAAA)");
-        String naissance = console.nextLine();
-        String[] elem = naissance.split("/");
-        LocalDate localDate = LocalDate.of( Integer.parseInt(elem[2]) , Integer.parseInt(elem[1]) , Integer.parseInt(elem[0]) );
-        User user = new User(serial, name, occupation, siblings, height, married);
+        System.out.println("What is the user's birthdate? (DD/MM/YYYY)");
+        String birthdate = console.nextLine();
+        LocalDate localDate = LocalDate.parse(birthdate, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        User user = new User(serial, name, occupation, siblings, height, married, localDate);
 
         System.out.println("Sending object to Server");
         dos.writeUTF((new JSONObject(user)).toString());
-
 
         socket.close();
         console.close();
