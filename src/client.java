@@ -31,8 +31,8 @@ public class client {
 
 
         System.out.println("Please enter the user's name:");
-        String input2 = console.nextLine();
-        while (!input2.matches("[a-zA-Z]+")) { // checks if the input is a string
+        input = console.nextLine();
+        while (!input.matches("[a-zA-Z]+")) { // checks if the input is a string
             System.out.println("Invalid input, please enter a valid name.");
             input = console.nextLine();
         }
